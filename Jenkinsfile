@@ -7,7 +7,8 @@ pipeline {
     stages {
         stage('Preparation') {
             steps {
-                git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+                //git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+                svn 'http://svn.inspq.qc.ca/svn/inspq/dev/Inspq.SX5/trunk'
             }
         }
         stage ('Build') {
