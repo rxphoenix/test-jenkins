@@ -2,14 +2,12 @@
 pipeline {
     agent any
     tools {
-        jdk 'jdk8'
         maven 'Maven 3.5.0'
     }
     stages {
         stage('Preparation') {
             steps {
                 git 'https://github.com/jglick/simple-maven-project-with-tests.git'
-                mvnHome = tool 'M3'
             }
         }
         stage ('Build') {
