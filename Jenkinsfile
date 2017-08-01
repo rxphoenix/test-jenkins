@@ -33,7 +33,7 @@ pipeline {
         }
         stage ('Construire SX5-ui') {
             steps {
-                sh "cd sx5-ui && npm install && npm test-once"
+                sh "cd sx5-ui && npm install && npm run test-once"
             }
         }
         stage('Results') {
