@@ -8,7 +8,24 @@ pipeline {
         stage('Preparation') {
             steps {
                 //git 'https://github.com/jglick/simple-maven-project-with-tests.git'
-                svn 'http://svn.inspq.qc.ca/svn/inspq/dev/Inspq.SX5/trunk'
+                //withCredentials([usernamePassword(credentialsId: "inspqcoumat01", passwordVarialbe: 'SVN_PASSWORD', usernameVariable: 'SVN_USERNAME')]) {
+                //    svn 'http://svn.inspq.qc.ca/svn/inspq/dev/Inspq.SX5/trunk'
+                //}
+                checkout([$class: 'SubversionSCM', 
+                    additionalCredentials: [], 
+                    excludedCommitMessages: '', 
+                    excludedRegions: '', 
+                    excludedRevprop: '', 
+                    excludedUsers: '', 
+                    filterChangelog: false, 
+                    ignoreDirPropChanges: false, 
+                    includedRegions: '', 
+                    locations: [[credentialsId: 'inspqcoumat01', 
+                                depthOption: 'infinity', 
+                                ignoreExternalsOption: true, 
+                                local: '.', 
+                                remote: "http://svn.inspq.qc.ca/svn/inspq/dev/Inspq.SX5/trunk"]], 
+                    workspaceUpdater: [$class: 'UpdateUpdater']])
             }
         }
         stage ('Build') {
