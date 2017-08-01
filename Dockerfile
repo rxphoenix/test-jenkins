@@ -15,4 +15,3 @@ RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable"
 RUN apt-get update
 RUN apt-get -y install docker-ce
-RUN echo "export DOCKER_HOST='tcp://0.0.0.0:2375'" >> ~/.bashrc

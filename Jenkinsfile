@@ -36,16 +36,6 @@ pipeline {
                 sh "cd sx5-ui && npm install && ng test"
             }
         }
-        stage ('Ansible') {
-            steps {
-                sh "ansible --version"
-            }
-        }
-        stage('Docker') {
-            steps {
-                sh "docker --version"
-            }
-        }
         stage('Results') {
             steps {
                 junit '**/target/surefire-reports/TEST-*.xml'
