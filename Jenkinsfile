@@ -27,7 +27,7 @@ pipeline {
         stage ('Construire SX5-services') {
             steps {
                 sh "cd sx5-services"
-                sh "mvn clean package -Pprod"
+                sh "mvn clean package"
             }
         }
         stage ('Ansible') {
