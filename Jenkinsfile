@@ -5,12 +5,8 @@ pipeline {
         maven 'M3'
     }
     stages {
-        stage('Preparation') {
+        stage('Checkout') {
             steps {
-                //git 'https://github.com/jglick/simple-maven-project-with-tests.git'
-                //withCredentials([usernamePassword(credentialsId: "inspqcoumat01", passwordVarialbe: 'SVN_PASSWORD', usernameVariable: 'SVN_USERNAME')]) {
-                //    svn 'http://svn.inspq.qc.ca/svn/inspq/dev/Inspq.SX5/trunk'
-                //}
                 checkout([$class: 'SubversionSCM', 
                     additionalCredentials: [], 
                     excludedCommitMessages: '', 
@@ -28,9 +24,10 @@ pipeline {
                     workspaceUpdater: [$class: 'UpdateUpdater']])
             }
         }
-        stage ('Build') {
+        stage ('Construire SX5-services') {
             steps {
-                sh "mvn -Dmaven.test.failure.ignore clean package"
+                sh "cd sx5-services"
+                sh "mvn clean package -Pprod"
             }
         }
         stage ('Ansible') {
