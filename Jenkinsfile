@@ -1,7 +1,10 @@
 #!/usr/bin/env groovy
 pipeline {
-    def mvnHome
     agent any
+    tools {
+        jdk 'jdk8'
+        maven 'Maven 3.5.0'
+    }
     stages {
         stage('Preparation') {
             steps {
@@ -11,7 +14,7 @@ pipeline {
         }
         stage ('Build') {
             steps {
-                sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean package"
+                sh "mvn -Dmaven.test.failure.ignore clean package"
             }
         }
         stage ('Ansible') {
