@@ -26,7 +26,13 @@ pipeline {
         }
         stage ('Construire SX5-services') {
             steps {
-                sh "cd sx5-services && mvn clean package"
+                sh "cd sx5-services && mvn clean package -Pprod"
+                sh "cd sx5-services && docker build -t sx5-services:ci"
+            }
+        }
+        stage ('Construire SX5-ui') {
+            steps {
+                sh "cd sx5-ui && npm install && ng test"
             }
         }
         stage ('Ansible') {
