@@ -4,7 +4,7 @@ pipeline {
     tools {
         jdk 'jdk8'
         maven 'M3'
-        docker 'docker'
+        org.jenkinsci.plugins.docker.commons.tools.DockerTool 'docker'
     }
     stages {
         stage('Checkout') {
