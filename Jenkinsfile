@@ -33,7 +33,7 @@ pipeline {
         }
         stage ('Construire SX5-ui') {
             steps {
-                sh "cd sx5-ui && docker run --rm -v ${PWD}:/app trion/ng-cli-karma ng test --watch=false"
+                sh "cd sx5-ui && docker run --rm -v ${WORKSPACE}/sx5-ui:/app trion/ng-cli-karma ng test --watch=false"
             }
         }
         stage('Results') {
