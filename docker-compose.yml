@@ -4,6 +4,7 @@ services:
       image: jenkins:local
       container_name: jenkins
       restart: always
+      privileged: true
       ports:
          - "8888:8080"
          - "50000:50000"
