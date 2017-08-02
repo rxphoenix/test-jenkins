@@ -9,3 +9,6 @@ services:
          - "50000:50000"
       volumes:
          - /var/run/docker.sock:/var/run/docker.sock
+         - jenkins_volume:/var/jenkins_home
+volumes:
+   jenkins_volume: {}
