@@ -27,26 +27,15 @@ pipeline {
         }
         stage ('Construire SX5-services') {
             steps {
-                if (isUnix()) {
-                    sh "cd sx5-services && mvn clean package -Pprod"
-                    sh "cd sx5-services && docker build -t sx5-services:ci ."
-                } else {
-                    bat "cd sx5-services && mvn clean package -Pprod"
-                    bat "cd sx5-services && docker build -t sx5-services:ci ."
-                }
+                bat "cd sx5-services && mvn clean package -Pprod"
+                bat "cd sx5-services && docker build -t sx5-services:ci ."
             }
         }
         stage ('Construire SX5-ui') {
             steps {
-                if (isUnix()) {
-                    sh "cd sx5-ui && npm install"
-                    //sh "cd sx5-ui && docker run -u root --rm -v ${WORKSPACE}/sx5-ui:/app trion/ng-cli-karma ng test --watch=false"
-                    sh "cd sx5-ui && docker run -u root --rm -v ${WORKSPACE}/sx5-ui:/app trion/ng-cli-karma ls -la"
-                } else {
-                    bat "cd sx5-ui && npm install"
-                    //bat "cd sx5-ui && docker run -u root --rm -v ${WORKSPACE}/sx5-ui:/app trion/ng-cli-karma ng test --watch=false"
-                    bat "cd sx5-ui && docker run -u root --rm -v ${WORKSPACE}/sx5-ui:/app trion/ng-cli-karma ls -la"
-                }
+                bat "cd sx5-ui && npm install"
+                //sh "cd sx5-ui && docker run -u root --rm -v ${WORKSPACE}/sx5-ui:/app trion/ng-cli-karma ng test --watch=false"
+                bat "cd sx5-ui && docker run -u root --rm -v ${WORKSPACE}/sx5-ui:/app trion/ng-cli-karma ls -la"
             }
         }
         stage('Results') {
