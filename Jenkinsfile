@@ -34,6 +34,7 @@ pipeline {
         stage ('Construire SX5-ui') {
             steps {
                 sh "cd sx5-ui && npm install"
+                sh "cd sx5-ui && docker login -u admin -p admin123 nexus3.inspq.qc.ca:5000"
                 sh "cd sx5-ui && docker run -u root --rm -v ${WORKSPACE}/sx5-ui:/app trion/ng-cli-karma ng test --watch=false"
                 //sh "cd sx5-ui && docker run -u root --rm -v ${PWD}:/app trion/ng-cli-karma ls -la"
             }
