@@ -8,6 +8,14 @@ pipeline {
     stages {
         stage ('Déploiement des services') {
             steps {
+                sh '''
+                    if [ ! -d ansible ]; then
+                        git clone https://github.com/Inspq/ansible.git && cd ansible
+                    else
+                        cd ansible && git pull
+                    fi
+                    git checkout inspq
+                '''
                 sh "ansible-playbook --version"
             }
         }
