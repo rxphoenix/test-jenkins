@@ -22,12 +22,12 @@ pipeline {
         }
         stage ('Déploiement des services') {
             steps {
-                sh "ansible-playbook --version"
+                sh "ansible-playbook sx5-services/deploy.yml -i /SIPMI/Sx5/properties/DEV3/DEV3.hosts"
             }
         }
         stage ('Déploiement du UI') {
             steps {
-                sh "ansible-playbook --version"
+                sh "ansible-playbook sx5-ui/deploy.yml -i /SIPMI/Sx5/properties/DEV3/DEV3.hosts"
             }
         }
     }
