@@ -13,7 +13,7 @@ pipeline {
         }
         stage ('Déploiement du UI') {
             steps {
-                sh "ansible-playbook -version"
+                sh "ansible-playbook --version"
             }
         }
     }
