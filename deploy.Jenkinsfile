@@ -36,7 +36,7 @@ pipeline {
                     git checkout inspq
                 '''
                 sh "touch ansible.cfg"
-                sh "printf '[defaults]\nroles_path=/var/lib/ansible/trunk/roles\nlibrary=${WORKSPACE}/ansible/lib/ansible/module:library\nmodule_utils=${WORKSPACE}/ansible/lib/ansible/module_utils:module_utils\n' >> ansible.cfg"
+                sh "printf '[defaults]\nroles_path=/var/lib/ansible/trunk/roles\nlibrary=${WORKSPACE}/ansible/lib/ansible/modules:library\nmodule_utils=${WORKSPACE}/ansible/lib/ansible/module_utils:module_utils\n' >> ansible.cfg"
             }
         }
         stage ('Déploiement des services') {
