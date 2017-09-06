@@ -6,6 +6,25 @@ pipeline {
         maven 'M3'
     }
     stages {
+        stage('Checkout') {
+            steps {
+                checkout([$class: 'SubversionSCM', 
+                    additionalCredentials: [], 
+                    excludedCommitMessages: '', 
+                    excludedRegions: '', 
+                    excludedRevprop: '', 
+                    excludedUsers: '', 
+                    filterChangelog: false, 
+                    ignoreDirPropChanges: false, 
+                    includedRegions: '', 
+                    locations: [[credentialsId: 'inspqcoumat01', 
+                                depthOption: 'infinity', 
+                                ignoreExternalsOption: true, 
+                                local: '.', 
+                                remote: "http://svn.inspq.qc.ca/svn/inspq/dev/Inspq.SX5/trunk"]], 
+                    workspaceUpdater: [$class: 'UpdateUpdater']])
+            }
+        }
         stage ('Configuration de ansible') {
             steps {
                 sh '''
