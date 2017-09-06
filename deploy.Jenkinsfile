@@ -56,12 +56,12 @@ pipeline {
         }
         stage ('Déploiement des services') {
             steps {
-                sh "ansible-playbook sx5-services/deploy.yml -b --connection=local -i ${WORKSPACE}/sx5-services/LOCAL/LOCAL.hosts"
+                sh "ansible-playbook sx5-services/deploy.yml --connection=local -i ${WORKSPACE}/sx5-services/LOCAL/LOCAL.hosts"
             }
         }
         stage ('Déploiement du UI') {
             steps {
-                sh "ansible-playbook sx5-ui/deploy.ym -b --connection=local -i ${WORKSPACE}/sx5-ui/LOCAL/LOCAL.hosts"
+                sh "ansible-playbook sx5-ui/deploy.yml --connection=local -i ${WORKSPACE}/sx5-ui/LOCAL/LOCAL.hosts"
             }
         }
     }
