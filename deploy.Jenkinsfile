@@ -56,12 +56,12 @@ pipeline {
         }
         stage ('Déploiement des services') {
             steps {
-                sh "ansible-playbook sx5-services/deploy.yml -i /SIPMI/Sx5/properties/DEV3/DEV3.hosts"
+                sh "ansible-playbook sx5-services/deploy.yml -i ${WORKSPACE}/LOCAL/LOCAL.hosts"
             }
         }
         stage ('Déploiement du UI') {
             steps {
-                sh "ansible-playbook sx5-ui/deploy.yml -i /SIPMI/Sx5/properties/DEV3/DEV3.hosts"
+                sh "ansible-playbook sx5-ui/deploy.yml -i ${WORKSPACE}/LOCAL/LOCAL.hosts"
             }
         }
     }
