@@ -40,7 +40,7 @@ pipeline {
                                 depthOption: 'infinity',
                                 ignoreExternalsOption: true,
                                 local: 'rolesansible',
-                                remote: "http://svn.inspq.qc.ca/svn/inspq/infrastructure/ansible/trunk"]]
+                                remote: "http://svn.inspq.qc.ca/svn/inspq/infrastructure/ansible/trunk"]],
                     workspaceUpdater: [$class: 'UpdateUpdater']])
                 sh '''
                     if [ ! -d ansible ]; then
