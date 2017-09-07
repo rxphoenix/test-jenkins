@@ -11,6 +11,7 @@ pipeline {
         stage ('Checkout de fonctions allégées') {
             steps {
                 script {
+                    echo params.VERSION
                     if (params.VERSION == null) {
                         echo "trunk"
                     } else {
