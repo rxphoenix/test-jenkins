@@ -28,14 +28,12 @@ pipeline {
         stage ('Construire SX5-services') {
             steps {
                 sh "cd sx5-services && mvn clean package -Pprod"
-                //sh "cd sx5-ui && docker login -u admin -p admin123 nexus3.inspq.qc.ca:5000"
                 sh "cd sx5-services && docker build -t sx5-services:ci ."
             }
         }
         stage ('Construire SX5-ui') {
             steps {
                 sh "cd sx5-ui && npm install"
-                //sh "cd sx5-ui && docker login -u admin -p admin123 nexus3.inspq.qc.ca:5000"
                 sh "cd sx5-ui && docker run -u root --rm -v ${WORKSPACE}/sx5-ui:/app trion/ng-cli-karma ng test --watch=false"
                 sh "cd sx5-ui && docker build -t sx5-ui:ci ."
             }

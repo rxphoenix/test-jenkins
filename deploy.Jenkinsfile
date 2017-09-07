@@ -47,15 +47,18 @@ pipeline {
                 sh "printf '[defaults]\nroles_path=${WORKSPACE}/rolesansible/roles\nlibrary=${WORKSPACE}/ansible/lib/ansible/modules:library\nmodule_utils=${WORKSPACE}/ansible/lib/ansible/module_utils:module_utils\n' >> ansible.cfg"
             }
         }
+        stage ('Deploiement de Keycloak') {
+            steps {
+                sh "ansible-playbook keycloak/deploy.yml -i ${WORKSPACE}/keycloak/LOCAL/LOCAL.hosts"
+            }
+        }
         stage ('Déploiement des services') {
             steps {
-                //sh "cd sx5-services && docker login -u admin -p admin123 nexus3.inspq.qc.ca:5000"
                 sh "ansible-playbook sx5-services/deploy.yml -i ${WORKSPACE}/sx5-services/LOCAL/LOCAL.hosts"
             }
         }
         stage ('Déploiement du UI') {
             steps {
-                //sh "cd sx5-ui && docker login -u admin -p admin123 nexus3.inspq.qc.ca:5000"
                 sh "ansible-playbook sx5-ui/deploy.yml -i ${WORKSPACE}/sx5-ui/LOCAL/LOCAL.hosts"
             }
         }
