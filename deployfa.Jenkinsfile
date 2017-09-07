@@ -9,23 +9,21 @@ pipeline {
     }
     stages {
         stage ('Checkout de fonctions allégées') {
-            environment {
-                CHEMIN_SVN = 'http://svn.inspq.qc.ca/svn/inspq/dev/FA/'
-            }
             steps {
                 script {
+                    cheminSVN = 'http://svn.inspq.qc.ca/svn/inspq/dev/FA/'
                     if (params.VERSION != null && params.VERSION.length() > 0) {
                         if (params.EST_BRANCHE) {
-                            env.CHEMIN_SVN = env.CHEMIN_SVN + "branches/" + params.VERSION
+                            cheminSVN = cheminSVN + "branches/" + params.VERSION
                         } else {
-                            env.CHEMIN_SVN = env.CHEMIN_SVN + "tags/" + params.VERSION
+                            cheminSVN = cheminSVN + "tags/" + params.VERSION
                         }
                     } else {
-                        env.CHEMIN_SVN = "trunk"
+                        env.CHEMIN_SVN = cheminSVN + "trunk"
                     }
-                    echo env.CHEMIN_SVN
+                    echo cheminSVN
                 }
-                echo '${env.CHEMIN_SVN}'
+                echo "${cheminSVN}"
             }
         }
         //stage ('Configuration de ansible') {
