@@ -21,14 +21,14 @@ pipeline {
                 }
             }
         }
-        stage ('Configuration de ansible') {
+        //stage ('Configuration de ansible') {
 
-        }
-        stage ('Déploiement des services') {
+        //}
+        //stage ('Déploiement des services') {
 
-        }
-        stage ('Déploiement de l\'IUS') {
+        //}
+        //stage ('Déploiement de l\'IUS') {
 
-        }
+        //}
     }
 }
