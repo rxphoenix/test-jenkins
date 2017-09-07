@@ -11,15 +11,14 @@ pipeline {
         stage ('Checkout de fonctions allégées') {
             steps {
                 script {
-                    echo params.VERSION
-                    if (params.VERSION == null) {
-                        echo "trunk"
-                    } else {
+                    if (params.VERSION != null && params.VERSION.length() > 0) {
                         if (params.EST_BRANCHE) {
                             echo "branche"
                         } else {
                             echo "tag"
                         }
+                    } else {
+                        echo "trunk"
                     }
                 }
             }
