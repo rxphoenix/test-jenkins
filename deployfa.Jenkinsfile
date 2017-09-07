@@ -11,7 +11,7 @@ pipeline {
         stage ('Checkout de fonctions allégées') {
             steps {
                 script {
-                    if (params.VERSION == "") {
+                    if (params.VERSION == null) {
                         echo "trunk"
                     } else {
                         if (params.EST_BRANCHE) {
