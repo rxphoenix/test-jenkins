@@ -23,7 +23,21 @@ pipeline {
                     }
                     echo cheminSVN
                 }
-                echo "${cheminSVN}"
+                checkout([$class: 'SubversionSCM', 
+                    additionalCredentials: [], 
+                    excludedCommitMessages: '', 
+                    excludedRegions: '', 
+                    excludedRevprop: '', 
+                    excludedUsers: '', 
+                    filterChangelog: false, 
+                    ignoreDirPropChanges: false, 
+                    includedRegions: '', 
+                    locations: [[credentialsId: "${params.CREDENTIELS}", 
+                                depthOption: 'infinity', 
+                                ignoreExternalsOption: true, 
+                                local: '.', 
+                                remote: "${cheminSVN}"]], 
+                    workspaceUpdater: [$class: 'UpdateUpdater']])
             }
         }
         //stage ('Configuration de ansible') {
