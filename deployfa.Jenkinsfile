@@ -25,7 +25,7 @@ pipeline {
                     }
                     echo env.CHEMIN_SVN
                 }
-                echo ${env.CHEMIN_SVN}
+                echo '${env.CHEMIN_SVN}'
             }
         }
         //stage ('Configuration de ansible') {
