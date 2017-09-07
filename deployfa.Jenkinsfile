@@ -21,10 +21,11 @@ pipeline {
                             env.CHEMIN_SVN = env.CHEMIN_SVN + "tags/" + params.VERSION
                         }
                     } else {
-                        env.CHEMIN_SVN = env.CHEMIN_SVN + "trunk"
+                        env.CHEMIN_SVN = "trunk"
                     }
                     echo env.CHEMIN_SVN
                 }
+                echo ${env.CHEMIN_SVN}
             }
         }
         //stage ('Configuration de ansible') {
