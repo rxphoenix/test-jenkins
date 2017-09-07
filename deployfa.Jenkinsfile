@@ -19,7 +19,7 @@ pipeline {
                             cheminSVN = cheminSVN + "tags/" + params.VERSION
                         }
                     } else {
-                        env.CHEMIN_SVN = cheminSVN + "trunk"
+                        cheminSVN = cheminSVN + "trunk"
                     }
                     echo cheminSVN
                 }
