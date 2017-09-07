@@ -9,17 +9,21 @@ pipeline {
     }
     stages {
         stage ('Checkout de fonctions allégées') {
+            environment {
+                CHEMIN_SVN = 'http://svn.inspq.qc.ca/svn/inspq/dev/FA/'
+            }
             steps {
                 script {
                     if (params.VERSION != null && params.VERSION.length() > 0) {
                         if (params.EST_BRANCHE) {
-                            echo "branche"
+                            env.CHEMIN_SVN = env.CHEMIN_SVN + "branches/" + params.VERSION
                         } else {
-                            echo "tag"
+                            env.CHEMIN_SVN = env.CHEMIN_SVN + "tags/" + params.VERSION
                         }
                     } else {
-                        echo "trunk"
+                        env.CHEMIN_SVN = env.CHEMIN_SVN + "trunk"
                     }
+                    echo env.CHEMIN_SVN
                 }
             }
         }
