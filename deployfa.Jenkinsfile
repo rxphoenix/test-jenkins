@@ -163,7 +163,7 @@ pipeline {
         }
         stage ('Lancement des tests Selenium sur Panorama') {
             when {
-                expresison { env.LANCEMENT_TESTS }
+                expression { env.LANCEMENT_TESTS }
             }
             steps {
                 echo "lancement des tests sur Panorama"
