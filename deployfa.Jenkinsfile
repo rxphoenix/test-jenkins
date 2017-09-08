@@ -172,7 +172,7 @@ pipeline {
                         inventaire = "${WORKSPACE}/FonctionsAllegeesIUS/LOCAL/group_vars/app"
                     }
 
-                    def valeur = ansibleReader.getInventory(inventaire).getProperty('faius_container_name')
+                    def valeur = ansibleReader.getInventory(inventaire).getValueFromKey('faius_container_name')
                     echo "$valeur"
                 }
                 //sh "cd test/FonctionsAllegeesTestsIntegration/init && mvn clean install exec:java \"-Dservices.url=${props['services.endpoint.url']}\" \"-Djdbc.url=${props['pant.datasource.url']}\" \"-Djdbc.username=${props['pant.datasource.username']}\" \"-Djdbc.password=${props['pant.datasource.password']}\""
