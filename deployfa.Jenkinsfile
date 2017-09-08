@@ -1,4 +1,9 @@
 #!/usr/bin/env groovy
+@GrabResolver(name='mavenCentral', root='https://mvnrepository.com')
+@Grab(group='org.yaml', module='snakeyaml', version='1.18')
+
+import org.yaml.snakeyaml.Yaml
+
 pipeline {
     agent any
     tools {
@@ -90,8 +95,22 @@ pipeline {
                 expression { !(env.ENV != null && env.ENV.length() > 0 && env.ENV != 'LOCAL') }
             }
             steps {
-                // checkouter les inventaires locaux pour les services et l'IUS
-                echo "checkout des inventaires locaux"
+                // Checkouter inventaire services
+                checkout([$class: 'SubversionSCM', 
+                    additionalCredentials: [], 
+                    excludedCommitMessages: '', 
+                    excludedRegions: '', 
+                    excludedRevprop: '', 
+                    excludedUsers: '', 
+                    filterChangelog: false, 
+                    ignoreDirPropChanges: false, 
+                    includedRegions: '', 
+                    locations: [[credentialsId: "${params.CREDENTIELS}", 
+                                depthOption: 'infinity', 
+                                ignoreExternalsOption: true, 
+                                local: 'LOCAL', 
+                                remote: "${cheminSVNIUS}/LOCAL"]], 
+                    workspaceUpdater: [$class: 'UpdateUpdater']])
             }
         }
         stage ('Déploiement des services') {
@@ -101,7 +120,6 @@ pipeline {
                         sh "ansible-playbook FonctionsAllegeesServices/deploy.yml -i /SIPMI/FonctionsAllegees/properties/${env.ENV}/${env.ENV}.hosts"
                     } else {
                         // Déploiement avec l'inventaire local
-                        //sh "ansible-playbook sx5-services/deploy.yml -i ${WORKSPACE}/sx5-services/LOCAL/LOCAL.hosts"
                     }
                 }
             }
@@ -112,7 +130,7 @@ pipeline {
                     if (env.ENV != null && env.ENV.length() > 0 && env.ENV != 'LOCAL') {
                         sh "ansible-playbook FonctionsAllegeesIUS/deploy.yml -i /SIPMI/FonctionsAllegees/properties/${env.ENV}/${env.ENV}.hosts"
                     } else {
-                        // Déploiement avec l'inventaire local
+                        sh "ansible-playbook FonctionsAllegeesIUS/deploy.yml -i ${WORKSPACE}/FonctionsAllegeesIUS/LOCAL/LOCAL.hosts"
                     }
                 }
             }
@@ -144,7 +162,15 @@ pipeline {
                 expression { env.LANCEMENT_TESTS }
             }
             steps {
-
+                script {
+                    def props
+                    if (env.ENV != null && env.ENV.length() > 0 && env.ENV != 'LOCAL') {
+                        //props = readProperties file: "/SIPMI/FonctionsAllegees/properties/${env.ENV}.properties"
+                    } else {
+                        //props = readProperties file: 
+                    }
+                }
+                //sh "cd test/FonctionsAllegeesTestsIntegration/init && mvn clean install exec:java \"-Dservices.url=${props['services.endpoint.url']}\" \"-Djdbc.url=${props['pant.datasource.url']}\" \"-Djdbc.username=${props['pant.datasource.username']}\" \"-Djdbc.password=${props['pant.datasource.password']}\""
                 echo "préparation des données"
             }
         }
