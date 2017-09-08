@@ -87,6 +87,7 @@ pipeline {
             }
             steps {
                 // checkouter les inventaires locaux pour les services et l'IUS
+                echo "checkout des inventaires locaux"
             }
         }
         stage ('Déploiement des services') {
