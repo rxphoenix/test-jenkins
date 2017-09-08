@@ -12,17 +12,19 @@ pipeline {
         stage ('Checkout de fonctions allégées') {
             steps {
                 script {
-                    cheminSVN = 'http://svn.inspq.qc.ca/svn/inspq/dev/FA/'
+                    cheminSVNbase = 'http://svn.inspq.qc.ca/svn/inspq/dev/FA/'
                     if (params.VERSION != null && params.VERSION.length() > 0) {
                         if (params.EST_BRANCHE) {
-                            cheminSVN = cheminSVN + "branches/" + params.VERSION
+                            cheminSVNbase = cheminSVNbase + "branches/" + params.VERSION
                         } else {
-                            cheminSVN = cheminSVN + "tags/" + params.VERSION
+                            cheminSVNbase = cheminSVNbase + "tags/" + params.VERSION
                         }
                     } else {
-                        cheminSVN = cheminSVN + "trunk"
+                        cheminSVNbase = cheminSVNbase + "trunk"
                     }
-                    echo cheminSVN
+                    cheminSVNServices = cheminSVNbase + "/source/FonctionsAllegeesServices/deploy.yml"
+                    cheminSVNIUS = cheminSVNbase + "/source/FonctionsAllegeesIUS/deploy.yml"
+                    echo cheminSVNbase
                 }
                 checkout([$class: 'SubversionSCM', 
                     additionalCredentials: [], 
@@ -36,8 +38,23 @@ pipeline {
                     locations: [[credentialsId: "${params.CREDENTIELS}", 
                                 depthOption: 'infinity', 
                                 ignoreExternalsOption: true, 
-                                local: '.', 
-                                remote: "${cheminSVN}"]], 
+                                local: 'FonctionsAllegeesServices', 
+                                remote: "${cheminSVNServices}"]], 
+                    workspaceUpdater: [$class: 'UpdateUpdater']])
+                checkout([$class: 'SubversionSCM', 
+                    additionalCredentials: [], 
+                    excludedCommitMessages: '', 
+                    excludedRegions: '', 
+                    excludedRevprop: '', 
+                    excludedUsers: '', 
+                    filterChangelog: false, 
+                    ignoreDirPropChanges: false, 
+                    includedRegions: '', 
+                    locations: [[credentialsId: "${params.CREDENTIELS}", 
+                                depthOption: 'infinity', 
+                                ignoreExternalsOption: true, 
+                                local: 'FonctionsAllegeesIUS', 
+                                remote: "${cheminSVNIUS}"]], 
                     workspaceUpdater: [$class: 'UpdateUpdater']])
             }
         }
