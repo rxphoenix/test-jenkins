@@ -65,7 +65,7 @@ pipeline {
                                 ignoreExternalsOption: true, 
                                 local: 'FonctionsAllegeesIUS', 
                                 remote: "${cheminSVNIUS}"]], 
-                    workspaceUpdater: [$class: 'UpdateUpdater']])*/
+                    workspaceUpdater: [$class: 'UpdateUpdater']])
             }
         }
         /*stage ('Configuration de ansible') {
