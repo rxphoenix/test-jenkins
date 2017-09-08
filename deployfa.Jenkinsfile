@@ -75,8 +75,6 @@ pipeline {
                                     local: 'rolesansible',
                                     remote: "http://svn.inspq.qc.ca/svn/inspq/infrastructure/ansible/trunk"]],
                         workspaceUpdater: [$class: 'UpdateUpdater']])
-                    sh "ls -la"
-                    //sh "if [ ! -d ansible ]; then git clone https://github.com/Inspq/ansible.git && cd ansible; else cd ansible && git pull; fi; git checkout inspq"
                     sh "if [ ! -d ansible ]; then git clone https://github.com/Inspq/ansible.git && cd ansible; else cd ansible && git pull; fi; git checkout inspq"
                     sh "touch ansible.cfg"
                     sh "printf '[defaults]\nroles_path=${WORKSPACE}/rolesansible/roles\nlibrary=${WORKSPACE}/ansible/lib/ansible/modules:library\nmodule_utils=${WORKSPACE}/ansible/lib/ansible/module_utils:module_utils\n' >> ansible.cfg"
