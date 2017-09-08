@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-@Library('ca.qc.inspq.jenkins')
+@Library('ansible-reader')
 import ca.qc.inspq.jenkins.AnsibleReader
 
 pipeline {
