@@ -163,7 +163,7 @@ pipeline {
             }
             steps {
                 script {
-                    ansibleReader = new AnsibleReader()
+                    ansibleReader = new AnsibleReader(this)
                     ansibleReader.test()
                     def props
                     if (env.ENV != null && env.ENV.length() > 0 && env.ENV != 'LOCAL') {
