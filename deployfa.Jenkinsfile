@@ -108,6 +108,21 @@ pipeline {
                     locations: [[credentialsId: "${params.CREDENTIELS}", 
                                 depthOption: 'infinity', 
                                 ignoreExternalsOption: true, 
+                                local: 'FonctionsAllegeesServices/LOCAL', 
+                                remote: "${cheminSVNServices}/LOCAL"]], 
+                    workspaceUpdater: [$class: 'UpdateUpdater']])
+                checkout([$class: 'SubversionSCM', 
+                    additionalCredentials: [], 
+                    excludedCommitMessages: '', 
+                    excludedRegions: '', 
+                    excludedRevprop: '', 
+                    excludedUsers: '', 
+                    filterChangelog: false, 
+                    ignoreDirPropChanges: false, 
+                    includedRegions: '', 
+                    locations: [[credentialsId: "${params.CREDENTIELS}", 
+                                depthOption: 'infinity', 
+                                ignoreExternalsOption: true, 
                                 local: 'FonctionsAllegeesIUS/LOCAL', 
                                 remote: "${cheminSVNIUS}/LOCAL"]], 
                     workspaceUpdater: [$class: 'UpdateUpdater']])
@@ -163,19 +178,29 @@ pipeline {
             }
             steps {
                 script {
-                    String inventaire
-                    AnsibleReader ansibleReader = new AnsibleReader()
+                    String inventaireIUS
+                    String inventaireServices                  
                     
                     if (env.ENV != null && env.ENV.length() > 0 && env.ENV != 'LOCAL') {
                         //props = readProperties file: "/SIPMI/FonctionsAllegees/properties/${env.ENV}.properties"
                     } else {
-                        inventaire = "${WORKSPACE}/FonctionsAllegeesIUS/LOCAL/group_vars/app"
+                        inventaireIUS = "${WORKSPACE}/FonctionsAllegeesIUS/LOCAL/group_vars/app"
+                        inventaireServices = "${WORKSPACE}/FonctionsAllegeesServices/LOCAL/group_vars/app"
                     }
-
-                    def valeur = ansibleReader.getInventory(inventaire).getValueFromKey('faius_container_name')
+                    AnsibleReader readerIUS = new AnsibleReader(inventaireIUS)
+                    AnsibleReader readerServices = new AnsibleReader(inventaireServices)
+                    def valeur = readerIUS.getValueFromKey('faius_container_name')
                     echo "$valeur"
                 }
-                //sh "cd test/FonctionsAllegeesTestsIntegration/init && mvn clean install exec:java \"-Dservices.url=${props['services.endpoint.url']}\" \"-Djdbc.url=${props['pant.datasource.url']}\" \"-Djdbc.username=${props['pant.datasource.username']}\" \"-Djdbc.password=${props['pant.datasource.password']}\""
+                // services.endpoint.url = http://faservices.dev3.inspq.qc.ca:14001/fa-services/    
+                // pant.datasource.url = jdbc:oracle:thin:@saora03d.inspq.qc.ca:1523:pantd          faservices_jdbc_url
+                // pant.datasource.username = system                                                faservices_jdbc_username
+                // pant.datasource.password = Pan0rama                                              faservices_jdbc_password
+
+                //sh "cd test/FonctionsAllegeesTestsIntegration/init && mvn clean install exec:java 
+                //\"-Dservices.url=${props['services.endpoint.url']}\" 
+                //\"-Djdbc.url=${props['pant.datasource.url']}\" 
+                //\"-Djdbc.username=${props['pant.datasource.username']}\" \"-Djdbc.password=${props['pant.datasource.password']}\""
             }
         }
         /*stage ('Lancement des tests de conformité') {
