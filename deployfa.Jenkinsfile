@@ -84,15 +84,24 @@ pipeline {
             steps {
                 script {
                     if (env.ENV != null && env.ENV.length() > 0 && env.ENV != 'LOCAL') {
-                        echo env.ENV
+                        sh "ansible-playbook FonctionsAllegeesServices/deploy.yml -i /SIPMI/FonctionsAllegees/properties/${env.ENV}/${env.ENV}.hosts"
                     } else {
-                        echo 'Local'
+                        // Déploiement avec l'inventaire local
+                        //sh "ansible-playbook sx5-services/deploy.yml -i ${WORKSPACE}/sx5-services/LOCAL/LOCAL.hosts"
                     }
                 }
             }
         }
-        //stage ('Déploiement de l\'IUS') {
-
-        //}
+        stage ('Déploiement de l\'IUS') {
+            steps {
+                script {
+                    if (env.ENV != null && env.ENV.length() > 0 && env.ENV != 'LOCAL') {
+                        sh "ansible-playbook FonctionsAllegeesIUS/deploy.yml -i /SIPMI/FonctionsAllegees/properties/${env.ENV}/${env.ENV}.hosts"
+                    } else {
+                        // Déploiement avec l'inventaire local
+                    }
+                }
+            }
+        }
     }
 }
