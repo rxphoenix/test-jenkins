@@ -1,8 +1,6 @@
 #!/usr/bin/env groovy
-@GrabResolver(name='mavenCentral', root='https://mvnrepository.com')
-@Grab(group='org.yaml', module='snakeyaml', version='1.18')
-
-import org.yaml.snakeyaml.Yaml
+@Library('ca.qc.inspq.jenkins')
+import ca.qc.inspq.jenkins.AnsibleReader
 
 pipeline {
     agent any
