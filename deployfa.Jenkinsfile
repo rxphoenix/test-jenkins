@@ -1,6 +1,10 @@
 #!/usr/bin/env groovy
 pipeline {
     agent any
+    tools {
+        jdk 'jdk8'
+        maven 'M3'
+    }
     parameters {
         string (name: 'ENV', description: 'Environnement sur lequel on déploie les fonctions allégées')
         //string (name: 'CREDENTIELS', description: 'Nom des crédentiels pour le SVN de l\'INSPQ dans Jenkins')
@@ -130,7 +134,7 @@ pipeline {
                     locations: [[credentialsId: "${params.CREDENTIELS}", 
                                 depthOption: 'infinity', 
                                 ignoreExternalsOption: true, 
-                                local: 'FonctionsAllegeesIUS', 
+                                local: 'test', 
                                 remote: "${cheminTests}"]], 
                     workspaceUpdater: [$class: 'UpdateUpdater']])
             }
@@ -140,6 +144,7 @@ pipeline {
                 expression { env.LANCEMENT_TESTS }
             }
             steps {
+
                 echo "préparation des données"
             }
         }
