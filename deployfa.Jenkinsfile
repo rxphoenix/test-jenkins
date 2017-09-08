@@ -22,8 +22,8 @@ pipeline {
                     } else {
                         cheminSVNbase = cheminSVNbase + "trunk"
                     }
-                    cheminSVNServices = cheminSVNbase + "/source/FonctionsAllegeesServices/deploy.yml"
-                    cheminSVNIUS = cheminSVNbase + "/source/FonctionsAllegeesIUS/deploy.yml"
+                    cheminSVNServices = cheminSVNbase + "/source/FonctionsAllegeesServices"
+                    cheminSVNIUS = cheminSVNbase + "/source/FonctionsAllegeesIUS"
                     echo cheminSVNbase
                 }
                 checkout([$class: 'SubversionSCM', 
@@ -36,7 +36,7 @@ pipeline {
                     ignoreDirPropChanges: false, 
                     includedRegions: '', 
                     locations: [[credentialsId: "${params.CREDENTIELS}", 
-                                depthOption: 'infinity', 
+                                depthOption: 'files', 
                                 ignoreExternalsOption: true, 
                                 local: 'FonctionsAllegeesServices', 
                                 remote: "${cheminSVNServices}"]], 
@@ -51,7 +51,7 @@ pipeline {
                     ignoreDirPropChanges: false, 
                     includedRegions: '', 
                     locations: [[credentialsId: "${params.CREDENTIELS}", 
-                                depthOption: 'infinity', 
+                                depthOption: 'files', 
                                 ignoreExternalsOption: true, 
                                 local: 'FonctionsAllegeesIUS', 
                                 remote: "${cheminSVNIUS}"]], 
