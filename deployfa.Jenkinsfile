@@ -19,7 +19,7 @@ pipeline {
         booleanParam (name: 'LANCEMENT_TESTS', defaultValue: true, description: 'Détermine si on lance les tests')
     }
     stages {
-        /*stage ('Checkout de fonctions allégées') {
+        stage ('Checkout de fonctions allégées') {
             steps {
                 script {
                     cheminSVNbase = 'http://svn.inspq.qc.ca/svn/inspq/dev/FA/'
@@ -36,7 +36,7 @@ pipeline {
                     cheminSVNIUS = cheminSVNbase + "/source/FonctionsAllegeesIUS"
                     cheminTests = cheminSVNbase + "/test"
                 }
-                checkout([$class: 'SubversionSCM', 
+                /*checkout([$class: 'SubversionSCM', 
                     additionalCredentials: [], 
                     excludedCommitMessages: '', 
                     excludedRegions: '', 
@@ -65,10 +65,10 @@ pipeline {
                                 ignoreExternalsOption: true, 
                                 local: 'FonctionsAllegeesIUS', 
                                 remote: "${cheminSVNIUS}"]], 
-                    workspaceUpdater: [$class: 'UpdateUpdater']])
+                    workspaceUpdater: [$class: 'UpdateUpdater']])*/
             }
         }
-        stage ('Configuration de ansible') {
+        /*stage ('Configuration de ansible') {
             steps {
                 checkout([$class: 'SubversionSCM',
                         additionalCredentials: [],
