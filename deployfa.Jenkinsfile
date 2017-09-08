@@ -108,7 +108,7 @@ pipeline {
                     locations: [[credentialsId: "${params.CREDENTIELS}", 
                                 depthOption: 'infinity', 
                                 ignoreExternalsOption: true, 
-                                local: 'LOCAL', 
+                                local: 'FonctionsAllegeesIUS/LOCAL', 
                                 remote: "${cheminSVNIUS}/LOCAL"]], 
                     workspaceUpdater: [$class: 'UpdateUpdater']])
             }
