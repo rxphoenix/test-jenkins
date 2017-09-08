@@ -165,7 +165,8 @@ pipeline {
                 script {
                     String inventaire = "${WORKSPACE}/FonctionsAllegeesIUS/LOCAL/group_vars/app"
                     ansibleReader = new AnsibleReader(this)
-                    ansibleReader.test(inventaire)
+                    def valeur = ansibleReader.getInventaire(inventaire).getPropriete('faius_container_name')
+                    echo $valeur
                     def props
                     if (env.ENV != null && env.ENV.length() > 0 && env.ENV != 'LOCAL') {
                         //props = readProperties file: "/SIPMI/FonctionsAllegees/properties/${env.ENV}.properties"
