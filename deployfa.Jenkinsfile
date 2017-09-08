@@ -164,7 +164,7 @@ pipeline {
             steps {
                 script {
                     String inventaire
-                    AnsibleReader ansibleReader = new AnsibleReader(this)
+                    AnsibleReader ansibleReader = new AnsibleReader()
                     
                     if (env.ENV != null && env.ENV.length() > 0 && env.ENV != 'LOCAL') {
                         //props = readProperties file: "/SIPMI/FonctionsAllegees/properties/${env.ENV}.properties"
