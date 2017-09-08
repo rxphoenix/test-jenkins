@@ -80,9 +80,17 @@ pipeline {
                     sh "printf '[defaults]\nroles_path=${WORKSPACE}/rolesansible/roles\nlibrary=${WORKSPACE}/ansible/lib/ansible/modules:library\nmodule_utils=${WORKSPACE}/ansible/lib/ansible/module_utils:module_utils\n' >> ansible.cfg"
             }
         }
-        //stage ('Déploiement des services') {
-
-        //}
+        stage ('Déploiement des services') {
+            steps {
+                script {
+                    if (env.ENV != null && env.ENV.length() > 0 && env.ENV != 'LOCAL') {
+                        echo env.ENV
+                    } else {
+                        echo 'Local'
+                    }
+                }
+            }
+        }
         //stage ('Déploiement de l\'IUS') {
 
         //}
