@@ -25,7 +25,7 @@ pipeline {
                     }
                     cheminSVNServices = cheminSVNbase + "/source/FonctionsAllegeesServices"
                     cheminSVNIUS = cheminSVNbase + "/source/FonctionsAllegeesIUS"
-                    echo cheminSVNbase
+                    cheminTests = cheminSVNbase + "/test"
                 }
                 checkout([$class: 'SubversionSCM', 
                     additionalCredentials: [], 
@@ -118,7 +118,21 @@ pipeline {
                 expression { env.LANCEMENT_TESTS }
             }
             steps {
-                echo "checkout des projets de test"
+                checkout([$class: 'SubversionSCM', 
+                    additionalCredentials: [], 
+                    excludedCommitMessages: '', 
+                    excludedRegions: '', 
+                    excludedRevprop: '', 
+                    excludedUsers: '', 
+                    filterChangelog: false, 
+                    ignoreDirPropChanges: false, 
+                    includedRegions: '', 
+                    locations: [[credentialsId: "${params.CREDENTIELS}", 
+                                depthOption: 'infinity', 
+                                ignoreExternalsOption: true, 
+                                local: 'FonctionsAllegeesIUS', 
+                                remote: "${cheminTests}"]], 
+                    workspaceUpdater: [$class: 'UpdateUpdater']])
             }
         }
         stage ('Préparation des données de test') {
