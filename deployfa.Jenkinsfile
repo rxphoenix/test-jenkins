@@ -50,7 +50,7 @@ pipeline {
                                 ignoreExternalsOption: true, 
                                 local: 'FonctionsAllegeesServices', 
                                 remote: "${cheminSVNServices}"]], 
-                    workspaceUpdater: [$class: 'UpdateUpdater']])
+                    workspaceUpdater: [$class: 'UpdateUpdater']])*/
                 checkout([$class: 'SubversionSCM', 
                     additionalCredentials: [], 
                     excludedCommitMessages: '', 
