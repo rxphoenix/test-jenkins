@@ -89,7 +89,7 @@ pipeline {
                     sh "touch ansible.cfg"
                     sh "printf '[defaults]\nroles_path=${WORKSPACE}/rolesansible/roles\nlibrary=${WORKSPACE}/ansible/lib/ansible/modules:library\nmodule_utils=${WORKSPACE}/ansible/lib/ansible/module_utils:module_utils\n' >> ansible.cfg"
             }
-        }
+        }*/
         stage ('Checkout des inventaires locaux') {
             when {
                 expression { !(env.ENV != null && env.ENV.length() > 0 && env.ENV != 'LOCAL') }
@@ -113,7 +113,7 @@ pipeline {
                     workspaceUpdater: [$class: 'UpdateUpdater']])
             }
         }
-        stage ('Déploiement des services') {
+        /*stage ('Déploiement des services') {
             steps {
                 script {
                     if (env.ENV != null && env.ENV.length() > 0 && env.ENV != 'LOCAL') {
@@ -163,8 +163,9 @@ pipeline {
             }
             steps {
                 script {
+                    String inventaire = "${WORKSPACE}/FonctionsAllegeesIUS/LOCAL/group_vars/app"
                     ansibleReader = new AnsibleReader(this)
-                    ansibleReader.test()
+                    ansibleReader.test(inventaire)
                     def props
                     if (env.ENV != null && env.ENV.length() > 0 && env.ENV != 'LOCAL') {
                         //props = readProperties file: "/SIPMI/FonctionsAllegees/properties/${env.ENV}.properties"
