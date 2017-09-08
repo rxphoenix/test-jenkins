@@ -163,19 +163,19 @@ pipeline {
             }
             steps {
                 script {
-                    String inventaire = "${WORKSPACE}/FonctionsAllegeesIUS/LOCAL/group_vars/app"
-                    ansibleReader = new AnsibleReader(this)
-                    def valeur = ansibleReader.getInventaire(inventaire).getPropriete('faius_container_name')
-                    echo "$valeur"
-                    def props
+                    String inventaire
+                    AnsibleReader ansibleReader = new AnsibleReader(this)
+                    
                     if (env.ENV != null && env.ENV.length() > 0 && env.ENV != 'LOCAL') {
                         //props = readProperties file: "/SIPMI/FonctionsAllegees/properties/${env.ENV}.properties"
                     } else {
-                        //props = readProperties file: 
+                        inventaire = "${WORKSPACE}/FonctionsAllegeesIUS/LOCAL/group_vars/app"
                     }
+
+                    def valeur = ansibleReader.getInventaire(inventaire).getPropriete('faius_container_name')
+                    echo "$valeur"
                 }
                 //sh "cd test/FonctionsAllegeesTestsIntegration/init && mvn clean install exec:java \"-Dservices.url=${props['services.endpoint.url']}\" \"-Djdbc.url=${props['pant.datasource.url']}\" \"-Djdbc.username=${props['pant.datasource.username']}\" \"-Djdbc.password=${props['pant.datasource.password']}\""
-                echo "préparation des données"
             }
         }
         /*stage ('Lancement des tests de conformité') {
