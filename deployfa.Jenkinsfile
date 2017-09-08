@@ -178,19 +178,24 @@ pipeline {
             }
             steps {
                 script {
-                    String inventaireIUS
-                    String inventaireServices                  
+                    String inventaireServices
+                    String hostnameServices
                     
                     if (env.ENV != null && env.ENV.length() > 0 && env.ENV != 'LOCAL') {
                         //props = readProperties file: "/SIPMI/FonctionsAllegees/properties/${env.ENV}.properties"
                     } else {
-                        inventaireIUS = "${WORKSPACE}/FonctionsAllegeesIUS/LOCAL/group_vars/app"
                         inventaireServices = "${WORKSPACE}/FonctionsAllegeesServices/LOCAL/group_vars/app"
+                        hostnameServices = "localhost"
                     }
-                    AnsibleReader readerIUS = new AnsibleReader(inventaireIUS)
                     AnsibleReader readerServices = new AnsibleReader(inventaireServices)
-                    def valeur = readerIUS.getValueFromKey('faius_container_name')
-                    echo "$valeur"
+                    def urlDatasource = readerServices.getValueFromKey('faservices_jdbc_url')
+                    def username = readerServices.getValueFromKey('faservices_jdbc_username')
+                    def password = readerServices.getValueFromKey('faservices_jdbc_password')
+                    def protocol = readerServices.getValueFromKey('faservices_protocol')
+                    def port = readerServices.getValueFromKey('faservices_external_port')
+
+                    def urlServices = "${protocol}://${hostnameServices}:${port}/fa-services"
+                    echo "$urlServices"
                 }
                 // services.endpoint.url = http://faservices.dev3.inspq.qc.ca:14001/fa-services/    
                 // pant.datasource.url = jdbc:oracle:thin:@saora03d.inspq.qc.ca:1523:pantd          faservices_jdbc_url
