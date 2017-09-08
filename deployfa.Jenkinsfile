@@ -7,6 +7,7 @@ pipeline {
         string (name: 'CREDENTIELS', defaultValue: 'inspqcoumat01', description: 'Nom des crédentiels pour le SVN de l\'INSPQ dans Jenkins')
         string (name: 'VERSION', description: 'Version à déployer. Si aucune, on déploie le trunk')
         booleanParam (name: 'EST_BRANCHE', defaultValue: false, description: 'Détermine si la version se trouve dans une branche ou un tag')
+        booleanParam (name: 'LANCEMENT_TESTS', defaultValue: false, description: 'Détermine si on lance les tests')
     }
     stages {
         stage ('Checkout de fonctions allégées') {
@@ -85,7 +86,7 @@ pipeline {
                 expression { !(env.ENV != null && env.ENV.length() > 0 && env.ENV != 'LOCAL') }
             }
             steps {
-                echo 'local!'
+                // checkouter les inventaires locaux pour les services et l'IUS
             }
         }
         stage ('Déploiement des services') {
@@ -109,6 +110,62 @@ pipeline {
                         // Déploiement avec l'inventaire local
                     }
                 }
+            }
+        }
+        stage ('Checkout des projets de tests') {
+            when {
+                expression { env.LANCEMENT_TESTS }
+            }
+            steps {
+                echo "checkout des projets de test"
+            }
+        }
+        stage ('Préparation des données de test') {
+            when {
+                expression { env.LANCEMENT_TESTS }
+            }
+            steps {
+                echo "préparation des données"
+            }
+        }
+        stage ('Lancement des tests de conformité') {
+            when {
+                expression { env.LANCEMENT_TESTS }
+            }
+            steps {
+                echo "lancement des tests de conformité"
+            }
+        }
+        stage ('Lancement des tests SOAPUI') {
+            when {
+                expression { env.LANCEMENT_TESTS }
+            }
+            steps {
+                echo "lancement des tests SOAPUI"
+            }
+        }
+        stage ('Ouverture du serveur Selenium') {
+            when {
+                expression { env.LANCEMENT_TESTS }
+            }
+            steps {
+                echo "ouverture du serveur Selenium"
+            }
+        }
+        stage ('Lancement des tests Selenium sur l\'IUS des fonctions allégées') {
+            when {
+                expression { env.LANCEMENT_TESTS }
+            }
+            steps {
+                echo "lancement des tests selenium sur IUS"
+            }
+        }
+        stage ('Lancement des tests Selenium sur Panorama') {
+            when {
+
+            }
+            steps {
+                echo "lancement des tests sur Panorama"
             }
         }
     }
