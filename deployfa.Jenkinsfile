@@ -19,7 +19,7 @@ pipeline {
         booleanParam (name: 'LANCEMENT_TESTS', defaultValue: true, description: 'Détermine si on lance les tests')
     }
     stages {
-        stage ('Checkout de fonctions allégées') {
+        /*stage ('Checkout de fonctions allégées') {
             steps {
                 script {
                     cheminSVNbase = 'http://svn.inspq.qc.ca/svn/inspq/dev/FA/'
@@ -156,7 +156,7 @@ pipeline {
                                 remote: "${cheminTests}"]], 
                     workspaceUpdater: [$class: 'UpdateUpdater']])
             }
-        }
+        }*/
         stage ('Préparation des données de test') {
             when {
                 expression { env.LANCEMENT_TESTS }
@@ -176,7 +176,7 @@ pipeline {
                 echo "préparation des données"
             }
         }
-        stage ('Lancement des tests de conformité') {
+        /*stage ('Lancement des tests de conformité') {
             when {
                 expression { env.LANCEMENT_TESTS }
             }
@@ -215,6 +215,6 @@ pipeline {
             steps {
                 echo "lancement des tests sur Panorama"
             }
-        }
+        }*/
     }
 }
