@@ -149,7 +149,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
         stage ('Checkout des projets de tests') {
             when {
                 expression { env.LANCEMENT_TESTS }
@@ -171,7 +171,7 @@ pipeline {
                                 remote: "${cheminTests}"]], 
                     workspaceUpdater: [$class: 'UpdateUpdater']])
             }
-        }*/
+        }
         stage ('Préparation des données de test') {
             when {
                 expression { env.LANCEMENT_TESTS }
