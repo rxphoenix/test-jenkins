@@ -202,10 +202,7 @@ pipeline {
                 // pant.datasource.username = system                                                faservices_jdbc_username
                 // pant.datasource.password = Pan0rama                                              faservices_jdbc_password
 
-                //sh "cd test/FonctionsAllegeesTestsIntegration/init && mvn clean install exec:java 
-                //\"-Dservices.url=${props['services.endpoint.url']}\" 
-                //\"-Djdbc.url=${props['pant.datasource.url']}\" 
-                //\"-Djdbc.username=${props['pant.datasource.username']}\" \"-Djdbc.password=${props['pant.datasource.password']}\""
+                sh "cd test/FonctionsAllegeesTestsIntegration/init && mvn clean install exec:java \"-Dservices.url=${urlServices}\" \"-Djdbc.url=${urlDatasource}\" \"-Djdbc.username=${username}\" \"-Djdbc.password=${password}\""
             }
         }
         /*stage ('Lancement des tests de conformité') {
