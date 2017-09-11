@@ -188,9 +188,9 @@ pipeline {
                         hostnameServices = "localhost"
                     }
                     AnsibleReader readerServices = new AnsibleReader(inventaireServices)
-                    def urlDatasource = readerServices.getValueFromKey('faservices_jdbc_url')
-                    def username = readerServices.getValueFromKey('faservices_jdbc_username')
-                    def password = readerServices.getValueFromKey('faservices_jdbc_password')
+                    urlDatasource = readerServices.getValueFromKey('faservices_jdbc_url')
+                    username = readerServices.getValueFromKey('faservices_jdbc_username')
+                    password = readerServices.getValueFromKey('faservices_jdbc_password')
                     def protocol = readerServices.getValueFromKey('faservices_protocol')
                     def port = readerServices.getValueFromKey('faservices_external_port')
 
