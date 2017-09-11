@@ -194,7 +194,7 @@ pipeline {
                     def protocol = readerServices.getValueFromKey('faservices_protocol')
                     def port = readerServices.getValueFromKey('faservices_external_port')
 
-                    def urlServices = "${protocol}://${hostnameServices}:${port}/fa-services"
+                    urlServices = "${protocol}://${hostnameServices}:${port}/fa-services"
                     echo "$urlServices"
                 }
                 // services.endpoint.url = http://faservices.dev3.inspq.qc.ca:14001/fa-services/    
