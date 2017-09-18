@@ -17,7 +17,7 @@ pipeline {
                     filterChangelog: false, 
                     ignoreDirPropChanges: false, 
                     includedRegions: '', 
-                    locations: [[credentialsId: 'inspqcoumat01', 
+                    locations: [[credentialsId: '30020735-8a8a-4209-bcb1-35b991e3b7ba', 
                                 depthOption: 'infinity', 
                                 ignoreExternalsOption: true, 
                                 local: '.', 
